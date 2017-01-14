@@ -7,11 +7,17 @@ wss.on('connection', function (ws) {
     console.log('connection');
     connections.push(ws);
     ws.on('message', function (message) {
-        console.log('received: %s', message);
+      var id;
+        for(var i = 0,i<3,i++){
+          if(connections[i]==ws){
+            id = ws;
+          }
+        }
         var split = message.split(",");
         split[0] = Math.floor(Math.pow(parseInt(split[0], 10),2) / parseInt(split[0],10)*10);
         split[1] = Math.floor(Math.pow(parseInt(split[1], 10),2) / parseInt(split[1],10)*10);
-        var message = split[0]+","+split[1];
+        var message = split[0]+","+split[1]+","+ id;
+        console.log('received: %s', message);
         broadcast(message);
     });
 
