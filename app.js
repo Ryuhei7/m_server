@@ -9,7 +9,7 @@ wss.on('connection', function (ws) {
     connections.push(ws);
     ws.on('message', function (message) {
         console.log('received: %s', message);
-        broadcast('Hello from ws');
+        broadcast(23);
     });
 
     ws.on('close', function() {
