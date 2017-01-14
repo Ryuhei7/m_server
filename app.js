@@ -3,7 +3,7 @@ var app = require('http').createServer(handler),
     io = require('socket.io').listen(app),
     fs = require('fs');
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log('Socket IO Server is listening on port 3000');
 });
 
@@ -51,6 +51,6 @@ net.createServer(function (socket) {
     console.log('error ', e);
   });
   socket.write('hello from tcp server');
-}).listen(3080, function() {
+}).listen(process.env.PORT || 3080, function() {
   console.log('TCP Server is listening on port 3080');
 });
