@@ -1,3 +1,4 @@
+/*
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({ port: process.env.PORT });
 
@@ -16,6 +17,7 @@ wss.on('connection', function connection(ws) {
         console.log('close');
     });
 });
+*/
 
 var http = require( 'http' ); // HTTPモジュール読み込み
 var socketio = require( 'socket.io' ); // Socket.IOモジュール読み込み
@@ -24,7 +26,7 @@ var pg = require( 'pg' );
 var server = http.createServer(function(req, res) {
     res.writeHead(200, {'Content-Type' : 'text/html'});
     res.end(fs.readFileSync(__dirname + '/index.html', 'utf-8'));
-}); 
+});
 //サーバー実装の前にエラーハンドリングを記述
 process.on('uncaughtException', function(err) {
   console.log(err);
