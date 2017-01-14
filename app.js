@@ -1,6 +1,6 @@
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({ port: process.env.PORT });
-
+var http = require( 'http' );
 var server = http.createServer( function( req, res ) {
   //もしURLにファイル名がないならばindex.htmlに飛ばすように
   if(req.url == "/")
