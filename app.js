@@ -8,7 +8,7 @@ wss.on('connection', function (ws) {
     connections.push(ws);
     ws.on('message', function (message) {
       var id;
-        for(var i = 0,i<3,i++){
+        for(var i = 0;i<3;i++){
           if(connections[i]==ws){
             id = ws;
           }
