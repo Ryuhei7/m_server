@@ -16,3 +16,25 @@ wss.on('connection', function connection(ws) {
         console.log('close');
     });
 });
+
+var http = require( 'http' ); // HTTPモジュール読み込み
+var socketio = require( 'socket.io' ); // Socket.IOモジュール読み込み
+var fs = require( 'fs' ); // ファイル入出力モジュール読み込み
+var pg = require( 'pg' );
+
+//サーバー実装の前にエラーハンドリングを記述
+process.on('uncaughtException', function(err) {
+  console.log(err);
+});
+
+var io = socketio.listen(server);
+
+io.sockets.on('connection', function(socket) {
+    socket.on('xy', function(data) {
+       console.log(data[0]);
+       console.log(data[1]);
+        io.sockets.emit('xy_back', 'success');
+        var xy=[Math.floor(data[0]),Math.floor(data[1])];
+          ws.send(xy);
+        console.log("success");
+    });
