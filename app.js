@@ -25,7 +25,7 @@ var pg = require( 'pg' );
 var server = http.createServer(function(req, res) {
     res.writeHead(200, {'Content-Type' : 'text/html'});
     res.end(fs.readFileSync(__dirname + '/index.html', 'utf-8'));
-});server.listen(process.env.PORT)
+});server.listen(process.env.PORT || 3000)
 
 var io = socketio.listen(server);
 
