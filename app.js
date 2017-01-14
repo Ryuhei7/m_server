@@ -1,24 +1,15 @@
 var net = require('net');
-//.listen(process.env.PORT || 8000);
-// サーバーインスタンスを生成し、リッスンします
-// net.createServer()に渡す関数は、'connection'イベントハンドラーになります。
-// コールバック関数が受け取るsockeオブジェクトは各接続ごとにユニークなものとなります。
-net.createServer(function(sock) {
-    // TCPサーバーが接続しました。socketオブジェクトが自動的に割り当てられます。
-    console.log('CONNECTED: ' + sock.remoteAddress +':'+ sock.remotePort);
-    // 'data' イベントハンドラー
-    sock.on('data', function(data) {
-        console.log('DATA: ' + data );
-        // ソケットに応答を書き込みます。クライアントはその書き込みを受信します。
-        sock.write('RECIEVED');
-    });
-    // 'close'イベントハンドラー
-    sock.on('close', function(had_error) {
-        console.log('CLOSED. Had Error: ' + had_error);
-    });
-    // 'errer'イベントハンドラー
-    sock.on('error', function(err) {
-        console.log('ERROR: ' + err.stack);
-    });
-}).listen(PORT, HOST);
-console.log('Server listening on ' + HOST +':'+ PORT);
+
+var server = net.createServer(function(conn){
+  console.log('server-> tcp server created');
+
+  conn.on('data', function(data){
+    console.log('server-> ' + data + ' from ' + conn.remoteAddress + ':' + conn.remotePort);
+    conn.write('server -> Repeating: ' + data);
+  });
+  conn.on('close', function(){
+    console.log('server-> client closed connection');
+  });
+}).listen(process.env.PORT || 11070);
+console.log(process.env.PORT);
+console.log('listening on port 11070');
