@@ -26,15 +26,13 @@ var pg = require( 'pg' );
 var server = http.createServer(function(req, res) {
     res.writeHead(200, {'Content-Type' : 'text/html'});
     res.end(fs.readFileSync(__dirname + '/index.html', 'utf-8'));
-});
-//サーバー実装の前にエラーハンドリングを記述
-process.on('uncaughtException', function(err) {
-  console.log(err);
-});
+});server.listen(process.env.PORT)
 
 var io = socketio.listen(server);
 
 io.sockets.on('connection', function(socket) {
+  console.log("Connect Server");
+
     socket.on('xy', function(data) {
        console.log(data[0]);
        console.log(data[1]);
@@ -43,4 +41,6 @@ io.sockets.on('connection', function(socket) {
           ws.send(xy);
         console.log("success");
     });
+
+
 });
