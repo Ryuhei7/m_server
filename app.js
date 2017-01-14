@@ -8,7 +8,7 @@ wss.on('connection', function (ws) {
     connections.push(ws);
     ws.on('message', function (message) {
         console.log('received: %s', message);
-        broadcast(23);
+        broadcast(message);
     });
 
     ws.on('close', function() {
@@ -18,6 +18,7 @@ wss.on('connection', function (ws) {
     });
 });
 });
+
 //ブロードキャストを行う
 function broadcast(message) {
     connections.forEach(function (con, i) {
