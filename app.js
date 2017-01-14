@@ -1,15 +1,56 @@
+// socket io
+var app = require('http').createServer(handler),
+    io = require('socket.io').listen(app),
+    fs = require('fs');
+
+app.listen(3000, function() {
+  console.log('Socket IO Server is listening on port 3000');
+});
+
+function handler(req, res) {
+  fs.readFile(__dirname + '/index.html', function(err, data) {
+    if(err) {
+      res.writeHead(500);
+      return res.end('Error');
+    }
+    res.writeHead(200);
+    res.write(data);
+    res.end();
+  })
+};
+
+// 待ち受け
+io.sockets.on('connection', function(socket) {
+  console.log('connection...');
+  socket.on('emit_from_client', function(data) {
+    console.log('socket.io server received : '+data);
+    // 接続しているソケット全部
+    io.sockets.emit('emit_from_server', data);
+  });
+});
+
+// TCP server
 var net = require('net');
+var writable = require('fs').createWriteStream('test.txt');
 
-var server = net.createServer(function(conn){
-  console.log('server-> tcp server created');
-
-  conn.on('data', function(data){
-    console.log('server-> ' + data + ' from ' + conn.remoteAddress + ':' + conn.remotePort);
-    conn.write('server -> Repeating: ' + data);
+net.createServer(function (socket) {
+  console.log('socket connected');
+  socket.on('data', function(data) {
+    var line = data.toString();
+    console.log('got "data"', line);
+    socket.pipe(writable);
+    io.sockets.emit('emit_from_server', line); // socket.io呼び出し
   });
-  conn.on('close', function(){
-    console.log('server-> client closed connection');
+  socket.on('end', function() {
+    console.log('end');
   });
-}).listen(process.env.PORT || 11070);
-console.log(process.env.PORT);
-console.log('listening on port 11070');
+  socket.on('close', function() {
+    console.log('close');
+  });
+  socket.on('error', function(e) {
+    console.log('error ', e);
+  });
+  socket.write('hello from tcp server');
+}).listen(3080, function() {
+  console.log('TCP Server is listening on port 3080');
+});
