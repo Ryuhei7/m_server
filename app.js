@@ -1,5 +1,5 @@
 var net = require('net');
-app.listen(process.env.PORT || 8000);
+.listen(process.env.PORT || 8000);
 // サーバーインスタンスを生成し、リッスンします
 // net.createServer()に渡す関数は、'connection'イベントハンドラーになります。
 // コールバック関数が受け取るsockeオブジェクトは各接続ごとにユニークなものとなります。
