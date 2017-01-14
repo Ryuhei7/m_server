@@ -1,4 +1,3 @@
-/*
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({ port: process.env.PORT });
 
@@ -17,7 +16,7 @@ wss.on('connection', function connection(ws) {
         console.log('close');
     });
 });
-*/
+
 
 var http = require( 'http' ); // HTTPモジュール読み込み
 var socketio = require( 'socket.io' ); // Socket.IOモジュール読み込み
