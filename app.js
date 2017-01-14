@@ -18,7 +18,7 @@ wss.on('connection', function (ws) {
             return (conn === ws) ? false : true;
     });
 });
-
+});
 //ブロードキャストを行う
 function broadcast(message) {
     connections.forEach(function (con, i) {
