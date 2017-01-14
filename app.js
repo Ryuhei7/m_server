@@ -18,7 +18,7 @@ var server = http.createServer( function( req, res ) {
     res.write(data);
     res.end();
   });
-});
+});server.listen(process.env.PORT)
 
 console.log("listening port :" + process.env.PORT);
 var connections = [];
