@@ -51,6 +51,6 @@ net.createServer(function (socket) {
     console.log('error ', e);
   });
   socket.write('hello from tcp server');
-}).listen(process.env.PORT || 3080, function() {
+}).listen(3080, function() {
   console.log('TCP Server is listening on port 3080');
 });
