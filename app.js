@@ -4,11 +4,13 @@ var wss = new WebSocketServer({ port: process.env.PORT });
 console.log("listening port :" + process.env.PORT);
 var connections = [];
 wss.on('connection', function (ws) {
+    console.log('ws');
     console.log('connection');
     connections.push(ws);
     ws.on('message', function (message) {
       var id;
-        for(var i = 0;i<3;i++){
+      var max = connections.length;
+        for(var i = 0; i<max; i++){
           if(connections[i]==ws){
             id = ws;
           }
