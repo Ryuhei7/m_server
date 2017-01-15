@@ -8,20 +8,21 @@ wss.on('connection', function (ws) {
     console.log('connection');
     connections.push(ws);
     ws.on('message', function (message) {
-      /*
+     /*
       var id;
       var max = connections.length;
         for(var i = 0; i<max; i++){
           if(connections[i]==ws){
             id = ws;
           }
-        }
+        }*/
 
         var split = message.split(",");
-        split[0] = Math.floor(parseInt(split[0],10)*16);//Math.floor(Math.pow(parseInt(split[0], 10),2) / parseInt(split[0],10)*10);
-        split[1] = Math.floor(parseInt(split[1],10)*16);//Math.floor(Math.pow(parseInt(split[1], 10),2) / parseInt(split[1],10)*10);
-        var message = split[0]+","+split[1];
-        */
+        x = parseFlort(split[0],10)-parseInt(split[0],10);
+        y = parseFlort(split[1],10)-parseInt(split[1],10);
+        x = Math.floor(x*100/2);//Math.floor(Math.pow(parseInt(split[0], 10),2) / parseInt(split[0],10)*10);
+        y = Math.floor(y*100/2);//Math.floor(Math.pow(parseInt(split[1], 10),2) / parseInt(split[1],10)*10);
+        var message = x+","+y;
         console.log('received:'+message);
         broadcast(message);
     });
