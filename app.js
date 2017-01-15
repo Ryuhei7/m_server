@@ -18,8 +18,8 @@ wss.on('connection', function (ws) {
         }*/
 
         var split = message.split(",");
-        x = parseFlort(split[0],10)-parseInt(split[0],10);
-        y = parseFlort(split[1],10)-parseInt(split[1],10);
+        x = parseFloat(split[0],10)-parseInt(split[0],10);
+        y = parseFloat(split[1],10)-parseInt(split[1],10);
         x = Math.floor(x*100/2);//Math.floor(Math.pow(parseInt(split[0], 10),2) / parseInt(split[0],10)*10);
         y = Math.floor(y*100/2);//Math.floor(Math.pow(parseInt(split[1], 10),2) / parseInt(split[1],10)*10);
         var message = x+","+y;
